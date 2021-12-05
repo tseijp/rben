@@ -1,18 +1,17 @@
 import React, { useState } from 'react'
 import styled from 'styled-components'
-import { Background } from './Background'
-import { Glass } from './Glass'
 import Layout from '@theme/Layout'
+import { Glass } from './Glass'
 
 export function Template (props: any) {
-    const { children, ...other } = props
-    const handleClick = () => {}
+    const { children, wrapProps={}, buttonProps={}, ...other } = props
     return (
       <Layout {...other}>
-        <Background/>
-        <Wrap>
+        <Wrap {...wrapProps}>
           <Flex top>
-            <Glass h1>RBEN<Glass button p onClick={handleClick}/>
+            <Glass h1>
+              RBEN
+              <Glass p button {...buttonProps}/>
               <Flex>{ children }</Flex>
             </Glass>
           </Flex>
@@ -21,30 +20,21 @@ export function Template (props: any) {
     )
 }
 
-const Wrap = styled.div`
-    height: calc(100vh - 3rem);
+export const Wrap = styled.div`
+    height: auto;
     margin: 0 auto;
     width: 100%;
+    position: relative;
 `
 
-const Flex = styled.div<any>`
+export const Flex = styled.div<any>`
     display: flex;
-    flex-flow: column;
+    flex-flow: ${({row}) => row? 'row': 'column'};
     text-align: center;
     align-items: center;
     justify-content: center;
     margin: auto;
-    ${({top=false}) => top &&`
+    ${({top=false}) => top && `
         max-width: 992px;
     `}
 `
-
-const Grid = styled.div`
-    background: ${$ => $.color};
-    height: 100%;
-    min-width: 100%;
-`
-
-Wrap.defaultProps = {color: '#' + (Math.random() * 0xffffff | 0).toString(16) }
-Flex.defaultProps = {color: '#' + (Math.random() * 0xffffff | 0).toString(16) }
-Grid.defaultProps = {color: '#' + (Math.random() * 0xffffff | 0).toString(16) }

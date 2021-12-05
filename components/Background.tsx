@@ -24,7 +24,6 @@ function toConvexProps () {
     ];
 }
 
-
 const materialProps = {
     thickness: 0,
     roughness: 1,
@@ -70,17 +69,16 @@ const style = {
 }
 
 export function Background (props: any) {
-    const { ...other } = props
+    const { ctrl, ...other } = props
     const { isDarkTheme } = useThemeContext()
-    console.log(isDarkTheme)
     return (
       <Canvas {...other} dpr={[1, 2]} style={style}>
-        <color attach="background" args={[isDarkTheme? "darkred": "lightpink"]} />
+        <color attach="background" args={[isDarkTheme? "#781E1E": "#FF8080"]} />
         <spotLight position={[15, 15, 15]} angle={0.3} castShadow />
         <React.Suspense fallback={null}>
           <CANNON.Physics>
             <Plane position={[0,-.5,0]} rotation={[-Math.PI/2,0,0]} />
-            {[...Array(~~rand(5, 10))].map((_, i=0) =>
+            {[...Array(5 + ctrl.size)].map((_, i=0) =>
                 <Cone key={i}
                     position={[rand(-1, 0), rand(5, 10), rand()]}
                     rotation={[rand(.5, 1), rand(0.1, 0.4), 0.1]}

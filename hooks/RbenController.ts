@@ -1,35 +1,37 @@
 type Fun = (...args: any) => void
 
+export interface RbenController {
+    set (key: string, next: string[] | ((pre: string[]) => string[])): void
+}
+
 export class RbenController {
     callback = (() => {}) as Fun
     private _input = 'puts  "hello"'
     private _items = new Map([
-        ['Globals', new Set(this._input)],
-        ['Cases', new Set(this._input)],
+        ['Globals', [this._input]],
+        ['Cases', [this._input]],
     ])
 
     constructor (callback=(()=>{}) as Fun) {
         this.callback = callback
-        this.click = this.click.bind(this)
+        this.set = this.set.bind(this)
     }
 
-    click (key="") {
-        return () => {
-            const item = this.keys.slice(-1)[0]
-            this._items.get(key).add(item)
-            this.callback()
-        }
+    set (key='', next: any) {
+        const inputs = this._items.get(key)
+        if (typeof next === "function")
+            next = next(inputs)
+        this._items.set(key, next)
+        this.callback()
     }
 
-    get keys (): string[] {
-        return Array.from(this._items.keys())
+    get size () {
+        let size = 0
+        this._items.forEach(item => item.forEach(() => size++))
+        return size
     }
 
-    get values () {
-        return Array.from(this._items.values()).map(set => Array.from(set))
-    }
-
-    get entries () {
-        return Object.entries(this._items)
+    get entries (): [string, string[]][] {
+        return Array.from(this._items.entries())
     }
 }
