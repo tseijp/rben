@@ -1,0 +1,59 @@
+# Pow
+
+```ruby
+def near1pow1(n)
+    result = 1.0
+        n.times do result = result * 1.0000000001 end
+    return result
+end
+
+def near1pow2(n)
+    if n == 0
+        return 1.0
+    elsif n == 1
+        return 1.0000000001
+    elsif n % 2 > 0
+        return near1pow2(n-1) * 1.0000000001
+    else
+        return near1pow2(n/2)**2
+    end
+end
+
+def near1pow3(n)
+    return Math.exp(n*Math.log(1.0000000001))
+end
+```
+
+```js
+<UseRben items={[`
+def near1pow1(n)
+    result = 1.0
+        n.times do result = result * 1.0000000001 end
+    return result
+end`, `
+def near1pow3(n)
+    return Math.exp(n*Math.log(1.0000000001))
+end`
+]}/>
+```
+
+
+```js
+<UseRben items={[`
+def near1pow2(n)
+    if n == 0
+        return 1.0
+    elsif n == 1
+        return 1.0000000001
+    elsif n % 2 > 0
+        return near1pow2(n-1) * 1.0000000001
+    else
+        return near1pow2(n/2)**2
+    end
+end
+`, `
+def near1pow3(n)
+    return Math.exp(n*Math.log(1.0000000001))
+end
+`]} />
+```
