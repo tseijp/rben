@@ -1,3 +1,32 @@
-# Documentations
+---
+sidebar_position: 0
+sidebar_label: Introduction
+---
 
-TODO
+# Introduction to Rben
+
+
+### What does it look like?
+
+```js
+<Rben
+  Globals={['puts "hello"']}
+  Cases={['puts "hello"']}
+/>
+```
+
+## Getting Started
+
+```shell
+git clone https://github.com/tseijp/use-midi
+```
+
+Run the development server:
+
+```shell
+cd use-midi
+yarn init
+yarn start
+```
+
+Your site starts at [http://localhost:3000](http://localhost:3000).

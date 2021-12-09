@@ -2,15 +2,20 @@ import React, { useState, useEffect } from 'react'
 import { RubyController } from './RubyController'
 import { RbenController } from './RbenController'
 
+export function UseRben (props: {
+    [key: string]: any
+    children: (ctrl: RbenController) => null | JSX.Element
+}): [RbenController, RbenController['dispatch']]
+
 export function UseRben (props: any={}) {
     const { children, ...other } = props
-    return children(useRben(other))
+    return children(...useRben(other))
 }
 
-export function useRben (props: any={}) {
-    const forceUpdate = useForceUpdate()
-    const [ctrl] = useState(new RbenController(forceUpdate))
-    return ctrl || props.ctrl
+export function useRben (props: any) {
+    const fn = useForceUpdate()
+    const [ctrl] = useState(new RbenController(fn, props))
+    return [ctrl, ctrl.dispatch.bind(ctrl)]
 }
 
 export function useRuby (callback?: () => void, input?: string, timeStamp?: number): [

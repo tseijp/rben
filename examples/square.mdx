@@ -1,5 +1,28 @@
 # Square
 
+import { UseRben } from '../hooks'
+
+<UseRben Cases={[`
+def square1(n)
+    return n*n
+end
+`, `
+def square2(n)
+    result = 0
+    n.times do result = result + n end
+    return result
+end
+`, `
+def square3(n)
+    result = 0
+    n.times do n.times do result = result + 1 end end
+    return result
+end
+`
+]}>
+{ ctrl => <>HI</> }
+</UseRben>
+
 
 ```ruby
 def square1(n)
@@ -17,25 +40,4 @@ def square3(n)
     n.times do n.times do result = result + 1 end end
     return result
 end
-```
-
-```js
-<UseRben items={[`
-def square1(n)
-    return n*n
-end
-`, `
-def square2(n)
-    result = 0
-    n.times do result = result + n end
-    return result
-end
-`, `
-def square3(n)
-    result = 0
-    n.times do n.times do result = result + 1 end end
-    return result
-end
-`
-]}
 ```

@@ -6,18 +6,19 @@ export interface RbenController {
 
 export class RbenController {
     callback = (() => {}) as Fun
-    private _input = 'puts  "hello"'
-    private _items = new Map([
-        ['Globals', [this._input]],
-        ['Cases', [this._input]],
-    ])
+    private _items = new Map()
 
-    constructor (callback=(()=>{}) as Fun) {
+    constructor (callback=(()=>{}) as Fun, items={}) {
+        for (const key in items)
+            this._items.set(key, items[key])
         this.callback = callback
-        this.set = this.set.bind(this)
     }
 
-    set (key='', next: any) {
+    apply () {
+        return [this.entries, this.set.bind(this)]
+    }
+
+    dispatch  (key='', next: any) {
         const inputs = this._items.get(key)
         if (typeof next === "function")
             next = next(inputs)

@@ -2,6 +2,7 @@ import ruby from "./Ruby";
 
 const join = (res: any) =>  res.output.map((chunk: any) => chunk.output).join("")
 
+type Fun = (...args: any) => void
 interface State {
     error: null | Error
     input: string
@@ -14,7 +15,7 @@ interface State {
 
 export class RubyController {
     state: State
-    callback = () => {}
+    callback: Fun = () => {}
 
     constructor (input='') {
         const timeStamp = performance.now()
