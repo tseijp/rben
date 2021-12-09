@@ -1,6 +1,7 @@
 # Square
 
 import { UseRben } from '../hooks'
+import { Editor } from '../containers/Editor'
 
 <UseRben Cases={[`
 def square1(n)
@@ -20,7 +21,9 @@ def square3(n)
 end
 `
 ]}>
-{ ctrl => <>HI</> }
+{(...args) =>
+  <Editor key={args[1]} args={args} />
+}
 </UseRben>
 
 

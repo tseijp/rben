@@ -18,26 +18,6 @@ export type GlassProps = Partial<{
     children: null | string | JSX.Element
 }>
 
-function withDarkAttrs (props: GlassProps) {
-    const { isDarkTheme } = useThemeContext()
-    props.c = isDarkTheme? '0,0,0':'255,255,255'
-    return props
-}
-
-function withButtonAttrs (props: GlassProps) {
-    if (props.p) props.children = '+'
-    if (props.m) props.children = '-'
-    return props
-}
-
-function withHeadAttrs (props: GlassProps) {
-    if (props.button) props.as = 'button'
-    else if (props.input) props.as = 'textarea'
-    else if (props.h1) props.as = 'h1'
-    else if (props.h2) props.as = 'h2'
-    else if (props.h3) props.as = 'h3'
-}
-
 export const Glass = styled.div
     .attrs(withDarkAttrs)
     .attrs(withHeadAttrs)
@@ -100,3 +80,23 @@ export const Glass = styled.div
         padding: auto;
     `}
 `
+
+function withDarkAttrs (props: GlassProps) {
+    const { isDarkTheme } = useThemeContext()
+    props.c = isDarkTheme? '0,0,0':'255,255,255'
+    return props
+}
+
+function withButtonAttrs (props: GlassProps) {
+    if (props.p) props.children = '+'
+    if (props.m) props.children = '-'
+    return props
+}
+
+function withHeadAttrs (props: GlassProps) {
+    if (props.button) props.as = 'button'
+    else if (props.input) props.as = 'textarea'
+    else if (props.h1) props.as = 'h1'
+    else if (props.h2) props.as = 'h2'
+    else if (props.h3) props.as = 'h3'
+}

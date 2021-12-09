@@ -1,6 +1,6 @@
 import React from 'react'
-import { Glass } from './Glass'
-import { Flex } from './Container'
+import { Glass } from '../components/Glass'
+import { Flex } from '../components/Flex'
 import { useRuby, useForceUpdate } from '../hooks'
 
 export function Editor (props: any) {
@@ -19,8 +19,8 @@ export function Editor (props: any) {
           <Flex row left style={{transform: "translate(1rem, 1rem)"}}>
             <Glass button onClick={rm}>✕</Glass>
             <Glass button onClick={rm}>■</Glass>
-            <Glass button onClick={() => set($.input)}>
-              {$.running? "wait...": "▶"}
+            <Glass button onClick={set}>
+              {"▶"}
             </Glass>
           </Flex>
           <Glass input value={$.input} onChange={handleChange} />

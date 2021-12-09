@@ -15,7 +15,7 @@ export class RbenController {
     }
 
     apply () {
-        return [this.entries, this.set.bind(this)]
+        return [this, this.dispatch.bind(this)]
     }
 
     dispatch  (key='', next: any) {

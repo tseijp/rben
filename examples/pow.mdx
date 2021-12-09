@@ -1,9 +1,10 @@
 # Pow
 
 import { UseRben } from '../hooks'
+import { Editor } from '../containers/Editor'
 
 <UseRben
-Globals={[`
+Cases={[`
 def near1pow1(n)
     result = 1.0
         n.times do result = result * 1.0000000001 end
@@ -25,9 +26,10 @@ def near1pow3(n)
     return Math.exp(n*Math.log(1.0000000001))
 end
 `]}
-Cases={[`puts "hello"`]}
 >
-{ ctrl => <>HI</> }
+{(...args) =>
+  <Editor key={args[1]} args={args} />
+}
 </UseRben>
 
 

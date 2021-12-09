@@ -20,7 +20,7 @@ export class RubyController {
     constructor (input='') {
         const timeStamp = performance.now()
         this.state = { error: null, input, output: "", running: false, timeStamp}
-        this.set = this.set.bind(this)
+        this.compute = this.compute.bind(this)
         this.run = this.run.bind(this)
     }
 
@@ -34,17 +34,19 @@ export class RubyController {
         $.deltaTime = $.timeStamp - $.prevTime
     }
 
-    apply (callback=()=>{}) {
+    apply (callback=()=>{}, delay=()=>{}) {
         this.callback = callback
-        return this.state
+        return [this.state, (i='') => void (this.dispatch(i), delay())]
     }
 
     /**
      *  main process of ruby
      */
-    set (input='') {
+    dispatch (input='') {
         const { state: $ } = this
         if (input === $.input) return
+        if (typeof input !== "string")
+            input = $.input
         $.input = input
         this.callback($)
     }
@@ -54,7 +56,7 @@ export class RubyController {
         if ($.running) return
         $.running = true
         ruby($.input)
-        .then(compute.bind(this), compute.bind(this))
+        .then(compute, compute)
         .then(() => {$.running = false})
         .then(this.callback)
         .then(() => console.log(this))
