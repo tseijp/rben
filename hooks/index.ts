@@ -1,9 +1,8 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, createElement as el, Fragment as fr } from 'react'
 import { RubyController } from './RubyController'
 import { RbenController } from './RbenController'
 
-const el = React.createElement
-const fr = React.Fragment
+export * from './helpers'
 
 export function UseRben (props: {
     [key: string]: any
@@ -16,9 +15,9 @@ export function UseRben (props: {
 
 export function UseRben (props: any={}) {
     const { children, Unit=fr, Wrap=fr, ...other } = props
-    const [{ entries, size }, set] = useRben(other)
-    return el(Wrap, {size},  entries.map(([index="", inputs=[]]) =>
-        el(Unit, {index, set}, inputs.map((...args: any) => children(...args)))
+    const [ctrl, set] = useRben(other)
+    return el(Wrap, {ctrl},  ctrl.entries.map(([key="", inputs=[]]) =>
+        el(Unit, {index: key, key, ctrl, set}, inputs.map(children))
     ))
 }
 
@@ -26,8 +25,8 @@ export function useRben (props: any) {
     const fn = useForceUpdate()
     const [ctrl] = useState(new RbenController(fn, props))
     return ctrl.apply()
-
 }
+
 export function useRuby (callback?: () => void, input?: string, timeStamp?: number): [
     RubyController['state'],
     (...args: any[]) => void
@@ -53,6 +52,12 @@ export function useDelay (callback = ()=>{}, timeStamp=1000) {
     const [ctrl] = useState(new DelayController());
     useEffect(() => ctrl.listener, []);
     return ctrl.apply(callback, timeStamp);
+}
+
+export function useMax (value: number) {
+    const ref = React.useRef(value)
+    if (ref.current < value) ref.current = value
+    return ref.current
 }
 
 class DelayController {

@@ -1,15 +1,17 @@
 import ruby from "./Ruby";
+import { is } from './helpers'
 
 const join = (res: any) =>  res.output.map((chunk: any) => chunk.output).join("")
 
 type Fun = (...args: any) => void
-interface State {
+
+export interface State {
     error: null | Error
     input: string
     output: string
     running: boolean
     prevTime?: number
-    timeStamp: number
+    timeStamp?: number
     deltaTime?: number
 }
 
@@ -18,8 +20,7 @@ export class RubyController {
     callback: Fun = () => {}
 
     constructor (input='') {
-        const timeStamp = performance.now()
-        this.state = { error: null, input, output: "", running: false, timeStamp}
+        this.state = { error: null, input, output: "", running: false}
         this.compute = this.compute.bind(this)
         this.run = this.run.bind(this)
     }
@@ -28,8 +29,10 @@ export class RubyController {
         const { state: $ } = this
         if (res instanceof Error) $.error = res
         else if (res) $.output = join(res)
+        $.running = false
 
-        $.prevTime = $.timeStamp
+        if (is.und(performance)) return
+        $.prevTime = $.timeStamp || 0
         $.timeStamp = performance.now()
         $.deltaTime = $.timeStamp - $.prevTime
     }
@@ -45,7 +48,7 @@ export class RubyController {
     dispatch (input='') {
         const { state: $ } = this
         if (input === $.input) return
-        if (typeof input !== "string")
+        if (!is.str(input))
             input = $.input
         $.input = input
         this.callback($)
@@ -57,8 +60,6 @@ export class RubyController {
         $.running = true
         ruby($.input)
         .then(compute, compute)
-        .then(() => {$.running = false})
         .then(this.callback)
-        .then(() => console.log(this))
     }
 }

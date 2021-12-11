@@ -1,15 +1,17 @@
 # Pow
 
 import { UseRben } from '../hooks'
-import { Editor } from '../containers/Editor'
+import { Edit } from '../containers/Edit'
+import { Unit } from '../containers/Unit'
 
-<UseRben
-Cases={[`
+<UseRben Unit={Unit} Cases={[`
 def near1pow1(n)
     result = 1.0
         n.times do result = result * 1.0000000001 end
     return result
-end`, `
+end
+puts near1pow1(1)
+`, `
 def near1pow2(n)
     if n == 0
         return 1.0
@@ -21,14 +23,16 @@ def near1pow2(n)
         return near1pow2(n/2)**2
     end
 end
+puts near1pow2(2)
 `,  `
 def near1pow3(n)
     return Math.exp(n*Math.log(1.0000000001))
 end
+puts near1pow3(3)
 `]}
 >
 {(...args) =>
-  <Editor key={args[1]} args={args} />
+  <Edit key={args[1]} args={args} />
 }
 </UseRben>
 

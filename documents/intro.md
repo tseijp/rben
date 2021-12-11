@@ -5,7 +5,6 @@ sidebar_label: Introduction
 
 # Introduction to Rben
 
-
 ### What does it look like?
 
 ```js
@@ -15,16 +14,16 @@ sidebar_label: Introduction
 />
 ```
 
-## Getting Started
+### Getting Started
 
 ```shell
-git clone https://github.com/tseijp/use-midi
+git clone https://github.com/tseijp/rben
 ```
 
 Run the development server:
 
 ```shell
-cd use-midi
+cd rben
 yarn init
 yarn start
 ```

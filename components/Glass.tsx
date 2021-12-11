@@ -1,102 +1,190 @@
 /**
  * ref: https://superdevresources.com/glassmorphism-ui-css/
+ * ref https://migi.me/css/video-play-pause-icon/
  */
-import styled from 'styled-components'
+import { ReactNode } from 'react'
+import styled, { css } from 'styled-components'
 import useThemeContext from '@theme/hooks/useThemeContext';
+import { animated, useSpring } from 'react-spring'
 
 export type GlassProps = Partial<{
-    c: '0,0,0'|'255,255,255'
-    p: boolean
-    m: boolean
-    button: boolean
-    input: boolean
-    output: boolean
-    h1: boolean
-    h2: boolean
-    h3: boolean
-    as: null | string | JSX.Element
-    children: null | string | JSX.Element
+    $button: boolean
+    $output: boolean
+    $input: boolean
+    $start: boolean
+    $stop: boolean
+    $p: boolean
+    $m: boolean
+    $h1: boolean
+    $h2: boolean
+    $h3: boolean
+    $c: '0,0,0'|'255,255,255'
+    as: ReactNode
+    style: any
+    children: ReactNode
+    value: string
 }>
 
-export const Glass = styled.div
+export const Glass = styled(animated.div)
     .attrs(withDarkAttrs)
     .attrs(withHeadAttrs)
     .attrs(withButtonAttrs)
+    .attrs(withHeightAttrs)
+    .attrs(withValueAttrs)
 <GlassProps>`
-    transition: 0.5s;
     overflow: hidden;
     display: block;
     position: relative;
-    border: 1px solid rgba(${({c}) => c},0.1);
-    border-radius: 2rem;
-    backdrop-filter: blur(30px);
-    background-color: rgba(${({c}) => c},0.1);
-    box-shadow: 4px 4px 60px rgba(${({c}) => c}},0.2);
-    :hover {
-        background-color: rgba(${({c}) => c},0.2);
-        box-shadow: 4px 4px 60px 8px rgba(${({c}) => c}}.2);
-    }
-    ${({button}) => button && `
+    ${glassStyle}
+    ${startStyle}
+    ${stopStyle}
+    ${buttonStyle}
+    ${inputStyle}
+    ${outputStyle}
+    ${otherStyle}
+`
+
+function glassStyle ({$c}: GlassProps) {
+    return css`
+        border: 1px solid rgba(${$c},0.1);
+        border-radius: 2rem;
+        backdrop-filter: blur(30px);
+        background-color: rgba(${$c},0.1);
+        box-shadow: 4px 4px 60px rgba(${$c}},0.2);
+        :hover {
+            background-color: rgba(${$c},0.2);
+            box-shadow: 4px 4px 60px 8px rgba(${$c}}.2);
+        }
+    `
+}
+
+function startStyle (props: GlassProps) {
+    return props.$button && props.$start && css`
+        width: 1em;
+        height: 1em;
+        :before {
+            position: absolute;
+            top: 50%;
+            left: 30%;
+            transform: translateY(-50%);
+            width: 0px;
+            height: 0px;
+            border: 0.3em solid transparent;
+            border-left: 0.5em solid currentColor;
+            box-sizing: border-box;
+            content: "";
+        }
+    `
+}
+
+function stopStyle (props: GlassProps) {
+    return props.$button && props.$stop && css`
+        width: 1em;
+        height: 1em;
+        border-radius: 50%;
+        :before, :after {
+            position: absolute;
+            top: 50%;
+            transform: translateX(-50%) translateY(-50%);
+            width: 0.1em;
+            height: 0.5em;
+            box-sizing: border-box;
+            background-color: currentColor;
+            content: "";
+        }
+        :before {
+            left: 40%;
+        }
+        :after {
+            left: 60%;
+        }
+    `
+}
+
+function buttonStyle (props: GlassProps) {
+    return props.$button && css`
         border-radius: 5000px;
         cursor: pointer;
         width: 3rem;
         height: 3rem;
+        margin-right: 0.5rem;
         display: inline-block;
-        margin: 0 .5rem;
         padding: 0;
         font-size: 2rem;
         letter-spacing: 2px;
         padding: 0;
-        text-align: center
+        text-align: center;
         text-transform: uppercase;
         text-decoration: none;
-    `}
-    ${({input}) => input && `
+    `
+}
+
+function inputStyle (props: GlassProps) {
+    return props.$input && css`
         outline: none;
-        transition: 0s;
-        width: auto;
         overflow: hidden;
-        text-align: left;
+        width: auto;
+        line-height: 1.2rem;
         font-size: 1rem;
+        text-align: left;
         font-weight: 1000;
-        font-family: inherit;
+        font-family: Consolas, Menlo, 'Liberation Mono', Courier, monospace;
         background: transparent;
-        :focus {
-            background: rgba(${({c}) => c},0.1);
-            box-shadow: 4px 4px 60px 8px rgba(${({c}) => c},0.2);
-        }
-    `}
-    ${({output}) => output && `
-        overflow: auto;
-        text-align: left;
+    `
+}
+
+function outputStyle (props: GlassProps) {
+    return props.$output && css`
         font-size: 1rem;
-        font-weight: 1000;
-        font-family: inherit;
-    `}
-    ${({button}) => !button && `
+        ${props.value === '' && css`
+            height: 0;
+            margin: 0;
+            padding: 0;
+            display: none;
+        `}
+    `
+}
+
+function otherStyle (props: GlassProps) {
+    return !props.$button && css`
         width: 100%;
         padding: 2rem;
-        margin: 1rem 1rem;
+        margin: 1rem 0;
         padding: auto;
-    `}
-`
+    `
+}
+
 
 function withDarkAttrs (props: GlassProps) {
     const { isDarkTheme } = useThemeContext()
-    props.c = isDarkTheme? '0,0,0':'255,255,255'
+    props.$c = isDarkTheme? '0,0,0':'255,255,255'
     return props
 }
 
 function withButtonAttrs (props: GlassProps) {
-    if (props.p) props.children = '+'
-    if (props.m) props.children = '-'
+    if (props.$p) props.children = '+'
+    if (props.$m) props.children = '-'
     return props
 }
 
 function withHeadAttrs (props: GlassProps) {
-    if (props.button) props.as = 'button'
-    else if (props.input) props.as = 'textarea'
-    else if (props.h1) props.as = 'h1'
-    else if (props.h2) props.as = 'h2'
-    else if (props.h3) props.as = 'h3'
+    if (props.$button) props.as = animated.button
+    else if (props.$input) props.as = animated.textarea
+    else if (props.$h1) props.as = animated.h1
+    else if (props.$h2) props.as = animated.h2
+    else if (props.$h3) props.as = animated.h3
+    return props
+}
+
+function withHeightAttrs (props: GlassProps) {
+    if (!props.$input) return props
+    const len = props.value?.split?.("\n")?.length || 0
+    props.style = useSpring({height: len * 1.22 + 4.22 + 'rem'})
+    return props
+}
+
+function withValueAttrs (props: GlassProps) {
+    if (!props.$input) return props
+    const { value, ...other } = props
+    return { defaultValue: value, ...other }
 }

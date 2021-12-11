@@ -1,28 +1,32 @@
 # Square
 
 import { UseRben } from '../hooks'
-import { Editor } from '../containers/Editor'
+import { Edit } from '../containers/Edit'
+import { Unit } from '../containers/Unit'
 
-<UseRben Cases={[`
+<UseRben Unit={Unit} Cases={[`
 def square1(n)
     return n*n
 end
+puts square1(1)
 `, `
 def square2(n)
     result = 0
     n.times do result = result + n end
     return result
 end
+puts square2(2)
 `, `
 def square3(n)
     result = 0
     n.times do n.times do result = result + 1 end end
     return result
 end
+puts square3(3)
 `
 ]}>
 {(...args) =>
-  <Editor key={args[1]} args={args} />
+  <Edit key={args[1]} args={args} />
 }
 </UseRben>
 

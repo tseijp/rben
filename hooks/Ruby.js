@@ -1,9 +1,15 @@
 import Worker from "./Ruby.worker.js";
 
 // launch a Ruby worker before we need one
-var nextWorker = new Worker();
+
+var nextWorker
+if (typeof window !== 'undefined')
+    nextWorker = new Worker();
 
 export default function ruby (input) {
+    if (typeof window === 'undefined')
+        return
+
     const result = {
         output: [],
         exitStatus: null

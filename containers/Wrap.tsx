@@ -1,44 +1,43 @@
 import React, { useState } from 'react'
 import styled from 'styled-components'
 import Layout from '@theme/Layout'
+import { Unit } from './Unit'
 import { Flex } from '../components/Flex'
 import { Head } from '../components/Head'
 import { Glass } from '../components/Glass'
 import { Background } from '../components/Background'
 import { RbenController } from '../hooks/RbenController'
 
-export function Wrap (props: any) {
-    const { size, children } = props
+export type WrapProps = Partial<{
+    ctrl: RbenController
+    children: any
+}>
+
+export function Wrap (props: WrapProps) {
+    const { ctrl, children, ...other } = props
     return (
-      <Container top="RBEN" sub="Ruby Benchmark test">
-        <Background size={size} />
+      <Container {...other}>
+        <Background size={ctrl.size} />
         { children }
-        <Glass row>
-          <Glass button>■</Glass>
-          <Glass button>▶</Glass>
-        </Glass>
+        <Unit index="Benchmark">
+          <Flex $row $tool>
+            <Glass $button $start/>
+            <Glass $button $stop/>
+          </Flex>
+        </Unit>
       </Container>
     )
 }
 
-type ContainerProps = Partial<{
-    ctrl: RbenController
-    top: string
-    sub: string
-    children: any
-    wrapProps: object
-    buttonProps: object
-}>
-
-export function Container (props: ContainerProps) {
-    const { children, top, sub, wrapProps={}, buttonProps={}, ...other } = props
+function Container (props: WrapProps) {
+    const { children, ...other } = props
     return (
       <Layout {...other}>
-        <Relative {...wrapProps}>
-          <Flex top>
-            <Glass {...buttonProps}>
-              <Head h1 top>{top}</Head>
-              <Head h3>{sub}</Head>
+        <Relative>
+          <Flex $top>
+            <Glass>
+              <Head $h1 $top>RBEN</Head>
+              <Head $h3>Ruby Benchmark Test</Head>
               <Flex>{ children }</Flex>
             </Glass>
           </Flex>
@@ -51,5 +50,6 @@ const Relative = styled.div`
     width: 100%;
     height: auto;
     margin: 0 auto;
+    padding: 0;
     position: relative;
 `
