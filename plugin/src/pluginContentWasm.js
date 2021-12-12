@@ -2,10 +2,9 @@
  * @content: docusaurus.config.js
  * @options: args[1]
  */
-function pluginContentWasm(context, options) {
+function pluginContentWasm() {
     return {
-        configureWebpack (config, isServer, utils, content) {
-            const { getJSLoader, getCacheLoader } = utils;
+        configureWebpack (config) {
             const _config = {}
             _config.module = {}
             _config.module.rules = [
@@ -22,6 +21,7 @@ function pluginContentWasm(context, options) {
             _config.experiments.asyncWebAssembly = true
             _config.resolve = {}
             _config.resolve.fallback = { fs: false, path: false }
+
             return _config
         }
     }
