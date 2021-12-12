@@ -1,6 +1,8 @@
-import React, { useState, useEffect, createElement as el, Fragment as fr } from 'react'
+import React, { useState, useEffect, createElement as el } from 'react'
 import { RubyController } from './RubyController'
 import { RbenController } from './RbenController'
+
+const fr = (props: any) => props.children
 
 export * from './helpers'
 

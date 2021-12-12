@@ -1,0 +1,36 @@
+# Sorts
+
+import { UseRben } from '../hooks'
+import { Edit } from '../containers/Edit'
+import { Unit } from '../containers/Unit'
+
+<UseRben Unit={Unit} Cases={[`
+def swap(a, i, j)
+    x = a[i]; a[i] = a[j]; a[j] = x
+end
+def bubblesort(a)
+    done = false
+    while !done do
+        done = true
+        0.step(a.length-2) do |i|
+            if a[i] > a[i+1] then swap(a, i, i+1); done = false end
+            end
+    end
+end
+puts bubblesort([0, 1, 2, 3, 4, 2])
+`, `
+def mergesort(a, i = 0, j = a.length-1)
+    if j <= i else
+        k = (i + j) / 2
+        mergesort(a, i, k)
+        mergesort(a, k + 1, j)
+        b = merge(a, i, k, a, k+1, j)
+        b.length.times do |m| a[i+m] = b[m] end
+    end
+end
+`]}
+>
+{(...args) =>
+  <Edit key={args[1]} args={args} />
+}
+</UseRben>

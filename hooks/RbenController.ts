@@ -35,6 +35,10 @@ export class RbenController {
         this.callback()
     }
 
+    get data () {
+        return null
+    }
+
     get size () {
         let ret = 0
         each(this._items, item => each(item, () => ret++))

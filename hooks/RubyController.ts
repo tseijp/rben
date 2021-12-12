@@ -57,6 +57,7 @@ export class RubyController {
     run () {
         const { state: $, compute } = this
         if ($.running) return
+        compute()
         $.running = true
         ruby($.input)
         .then(compute, compute)
