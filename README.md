@@ -1,7 +1,7 @@
 <p align="center">
 
 # RBEN👺
-[![][github-actions-img]][github-actions]
+[![][status-img]][status]
 [![][code-quality-img]][code-quality]
 [![][license-img]][license]
 
@@ -42,7 +42,7 @@ yarn start
 ```
 This command starts a local development server and opens up a browser window.
 Most changes are reflected live without having to restart the server.
-Your site starts at [http://localhost:3000](http://localhost:3000).
+Your site starts at [http://localhost:3d00](http://localhost:3d00).
 
 __Build__
 
@@ -61,10 +61,10 @@ $ GIT_USER=<Your GitHub username> USE_SSH=true yarn deploy
 
 [runrb]: https://github.com/jasoncharnes/run.rb
 
-[github-actions]: https://github.com/tseijp/rben/actions
+[status]: https://github.com/tseijp/rben/actions
 [code-quality]: https://www.codefactor.io/repository/github/tseijp/rben
 [license]: https://www.npmjs.com/package/use-midi
 
-[github-actions-img]: https://img.shields.io/github/workflow/status/deno-libs/gql/CI?logo=github&style=flat&colorA=000&colorB=000
-[code-quality-img]: https://img.shields.io/codefactor/grade/github/tseijp/rben?style=flat&colorA=000&colorB=000
-[license-img]: https://img.shields.io/badge/license-MIT-black?style=flat&colorA=000&colorB=000
+[status-img]: https://img.shields.io/badge/build-passing-red?style=flat&colorA=000&colorB=d00
+[code-quality-img]: https://img.shields.io/codefactor/grade/github/tseijp/rben?style=flat&colorA=000&colorB=d00
+[license-img]: https://img.shields.io/badge/license-MIT-black?style=flat&colorA=000&colorB=d00

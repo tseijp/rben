@@ -4,7 +4,7 @@
  */
 function pluginContentWasm() {
     return {
-        configureWebpack (config) {
+        configureWebpack () {
             const _config = {}
             _config.module = {}
             _config.module.rules = [
@@ -21,7 +21,6 @@ function pluginContentWasm() {
             _config.experiments.asyncWebAssembly = true
             _config.resolve = {}
             _config.resolve.fallback = { fs: false, path: false }
-
             return _config
         }
     }

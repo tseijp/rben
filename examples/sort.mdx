@@ -1,34 +1,76 @@
-# Sorts
+# Sort
 
 import { UseRben } from '../hooks'
 import { Edit } from '../containers/Edit'
 import { Unit } from '../containers/Unit'
 
 <UseRben Unit={Unit} Cases={[`
-def swap(a, i, j)
-    x = a[i]; a[i] = a[j]; a[j] = x
-end
-def bubblesort(a)
-    done = false
+def bubblesort(a, done=false)
     while !done do
         done = true
         0.step(a.length-2) do |i|
             if a[i] > a[i+1] then swap(a, i, i+1); done = false end
-            end
+        end
     end
+    return a
 end
-puts bubblesort([0, 1, 2, 3, 4, 2])
+def swap(a, i, j)
+    x = a[i]; a[i] = a[j]; a[j] = x
+end
+p bubblesort (1..100).to_a.shuffle
 `, `
-def mergesort(a, i = 0, j = a.length-1)
-    if j <= i else
-        k = (i + j) / 2
-        mergesort(a, i, k)
-        mergesort(a, k + 1, j)
-        b = merge(a, i, k, a, k+1, j)
-        b.length.times do |m| a[i+m] = b[m] end
+def quicksort(a, i = 0, j=a.length-1)
+    if j <= i
+    else
+        pivot = a[j]
+        s = i
+        i.step(j-1) do |k|
+            if a[k] <= pivot then swap(a, s, k); s = s + 1 end
+        end
+        swap(a, j, s)
+        quicksort(a, i, s-1)
+        quicksort(a, s+1, j)
     end
+    return a
 end
-`]}
+def swap(a, i, j)
+    x = a[i]; a[i] = a[j]; a[j] = x
+end
+p quicksort (1..100).to_a.shuffle
+`, `
+def binsort(a, b=makebin(a), k=0)
+    b.each_index do |i|
+        b[i].times do a[k] = i; k = k + 1 end
+    end
+    return a
+end
+def makebin(a)
+    b = Array.new(10000, 0)
+    a.each do |x| b[x] = b[x] + 1 end
+    return b
+end
+p binsort (1..100).to_a.shuffle
+`, `
+def radixsort(a, bits=14, b=(0..a.length).to_a, c = (0..a.length).to_a)
+    bits.times do |pos|
+        mask = 2**pos; bc = 0; cc = 0
+        a.length.times do |i|
+            if (a[i] & mask) == 0 then
+                b[bc] = a[i]; bc = bc + 1
+            else
+                c[cc] = a[i]; cc = cc + 1
+            end
+        end
+        bc.times do |i| a[i] = b[i] end
+        cc.times do |i| a[bc+i] = c[i] end
+    end
+    return a
+end
+p radixsort (1..100).to_a.shuffle
+`, `
+p (1..100).to_a.shuffle.sort
+`,
+]}
 >
 {(...args) =>
   <Edit key={args[1]} args={args} />
