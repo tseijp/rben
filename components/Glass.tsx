@@ -2,23 +2,22 @@
  * ref: https://superdevresources.com/glassmorphism-ui-css/
  * ref https://migi.me/css/video-play-pause-icon/
  */
-import { ReactNode, useState } from 'react'
+import { ReactNode } from 'react'
 import styled, { css } from 'styled-components'
-import useThemeContext from '@theme/hooks/useThemeContext';
-import { animated, useSpring } from 'react-spring'
+import * as _ from './attributes'
 
 export type GlassProps = Partial<{
-    $collapse: boolean
-    $button: boolean
-    $output: boolean
-    $input: boolean
     $start: boolean
     $stop: boolean
-    $p: boolean
-    $m: boolean
+    $btn: boolean
+    $clp: boolean
+    $out: boolean
+    $in: boolean
     $h1: boolean
     $h2: boolean
     $h3: boolean
+    $p: boolean
+    $m: boolean
     $c: '0,0,0'|'255,255,255'
     as: ReactNode
     style: any
@@ -28,12 +27,13 @@ export type GlassProps = Partial<{
     onMouseLeave: () => void
 }>
 
-export const Glass = styled(animated.div)
-    .attrs(withDarkAttrs)
-    .attrs(withHeadAttrs)
-    .attrs(withButtonAttrs)
-    .attrs(withHeightAttrs)
-    .attrs(withValueAttrs)
+export const Glass = styled.div
+    .attrs(_.withDarkAttrs)
+    .attrs(_.withHeadAttrs)
+    .attrs(_.withGlassAttrs)
+    .attrs(_.withButtonAttrs)
+    .attrs(_.withHeightAttrs)
+    .attrs(_.withValueAttrs)
 <GlassProps>`
     display: block;
     overflow: hidden;
@@ -62,7 +62,7 @@ function glassStyle ({$c}: GlassProps) {
 }
 
 function startStyle (props: GlassProps) {
-    return props.$button && props.$start && css`
+    return props.$btn && props.$start && css`
         width: 1em;
         height: 1em;
         :before {
@@ -81,7 +81,7 @@ function startStyle (props: GlassProps) {
 }
 
 function stopStyle (props: GlassProps) {
-    return props.$button && props.$stop && css`
+    return props.$btn && props.$stop && css`
         width: 1em;
         height: 1em;
         border-radius: 50%;
@@ -105,7 +105,7 @@ function stopStyle (props: GlassProps) {
 }
 
 function buttonStyle (props: GlassProps) {
-    return props.$button && css`
+    return props.$btn && css`
         border-radius: 5000px;
         cursor: pointer;
         width: 3rem;
@@ -122,7 +122,7 @@ function buttonStyle (props: GlassProps) {
 }
 
 function inputStyle (props: GlassProps) {
-    return props.$input && css`
+    return props.$in && css`
         outline: none;
         overflow: hidden;
         width: auto;
@@ -136,7 +136,7 @@ function inputStyle (props: GlassProps) {
 }
 
 function outputStyle (props: GlassProps) {
-    return props.$output && css`
+    return props.$out && css`
         font-size: 1rem;
         ${props.value === '' && css`
             height: 0;
@@ -148,54 +148,9 @@ function outputStyle (props: GlassProps) {
 }
 
 function otherStyle (props: GlassProps) {
-    return !props.$button && css`
+    return !props.$btn && css`
         width: 100%;
         padding: 2rem;
         margin: 1rem 0;
     `
-}
-
-
-function withDarkAttrs (props: GlassProps) {
-    const { isDarkTheme } = useThemeContext()
-    props.$c = isDarkTheme? '0,0,0':'255,255,255'
-    return props
-}
-
-function withButtonAttrs (props: GlassProps) {
-    if (props.$p) props.children = '+'
-    if (props.$m) props.children = '-'
-    return props
-}
-
-function withHeadAttrs (props: GlassProps) {
-    if (props.$button) props.as = animated.button
-    else if (props.$input) props.as = animated.textarea
-    else if (props.$h1) props.as = animated.h1
-    else if (props.$h2) props.as = animated.h2
-    else if (props.$h3) props.as = animated.h3
-    return props
-}
-
-function withHeightAttrs (props: GlassProps) {
-    const [hover, set] = useState(false)
-    props.onMouseEnter = () => set(true)
-    props.onMouseLeave = () => set(false)
-    if (props.$input) {
-        const len = props.value?.split?.("\n")?.length || 0
-        props.style = useSpring({height: len * 1.22 + 4.22 + 'rem'})
-        return props
-    }
-    if (props.$collapse) {
-        console.log(props.$collapse)
-        props.style = useSpring({maxHeight: hover? '100rem': '7.5rem'})
-        return props
-    }
-    return props
-}
-
-function withValueAttrs (props: GlassProps) {
-    if (!props.$input) return props
-    const { value, ...other } = props
-    return { defaultValue: value, ...other }
 }

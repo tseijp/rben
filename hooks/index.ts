@@ -1,27 +1,10 @@
 import React, { useState, useEffect, createElement as el } from 'react'
-import { RubyController } from './RubyController'
-import { RbenController } from './RbenController'
-
-const fr = (props: any) => props.children
-
+import { PlotController, RubyController, RbenController, DelayController } from './controllers'
+import * as d3 from "d3";
+export * from './controllers'
 export * from './helpers'
 
-export function UseRben (props: {
-    [key: string]: any
-    children: (
-        input: string,
-        key: string,
-        set: RbenController['dispatch']
-    ) => null | JSX.Element
-}): null | JSX.Element
-
-export function UseRben (props: any={}) {
-    const { children, Unit=fr, Wrap=fr, ...other } = props
-    const [ctrl, set] = useRben(other)
-    return el(Wrap, {ctrl},  ctrl.entries.map(([key="", inputs=[]]) =>
-        el(Unit, {index: key, key, ctrl, set}, inputs.map(children))
-    ))
-}
+const { useD3 } = require('d3blackbox')
 
 export function useRben (props: any) {
     const fn = useForceUpdate()
@@ -38,6 +21,15 @@ export function useRuby (callback=()=>{}, input="", timeStamp=1000) {
     const [ctrl] = useState(new RubyController(input))
     const delay = useDelay(ctrl.run, timeStamp)
     return ctrl.apply(callback, delay)
+}
+
+export function usePlot (props: any) {
+    const [ctrl] = React.useState(new PlotController())
+    return ctrl.apply(props)
+}
+
+export function useAxis (type: string, scale: any) {
+    return useD3((anchor: any) => d3.select(anchor).call(d3[`axis${type}`](scale)));
 }
 
 export function useForceUpdate () {
@@ -60,22 +52,4 @@ export function useMax (value: number) {
     const ref = React.useRef(value)
     if (ref.current < value) ref.current = value
     return ref.current
-}
-
-class DelayController {
-    listener = () => {};
-    callback = () => {};
-    timeStamp = 1000;
-
-    apply (callback = ()=>{}, timeStamp = 1000) {
-        this.callback = callback;
-        this.timeStamp = timeStamp;
-        return this.delay.bind(this);
-    }
-
-    delay (...args: any[]) {
-        this.listener();
-        const timeout = window.setTimeout(this.callback, this.timeStamp, ...args);
-        this.listener = () => void window.clearTimeout(timeout);
-    }
 }

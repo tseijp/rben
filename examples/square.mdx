@@ -1,10 +1,10 @@
 # Square
 
-import { UseRben } from '../hooks'
+import { Rben } from '../containers/Rben'
 import { Edit } from '../containers/Edit'
 import { Unit } from '../containers/Unit'
 
-<UseRben Unit={Unit} Globals={[]}  Cases={[`
+<Rben Globals={[]}  Cases={[`
 def square1(n)
     return n*n
 end
@@ -24,8 +24,5 @@ def square3(n)
 end
 puts square3(3)
 `
-]}>
-{(...args) =>
-  <Edit key={args[1]} args={args} />
-}
-</UseRben>
+]}
+/>

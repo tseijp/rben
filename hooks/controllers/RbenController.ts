@@ -1,5 +1,5 @@
 // import type { State } from './RubyController'
-import { is, each, eachProp } from './helpers'
+import { is, each, eachProp } from '../helpers'
 
 type Fun = (...args: any) => void
 
@@ -10,11 +10,11 @@ export interface RbenController {
 }
 
 export class RbenController {
-    callback = (() => {}) as Fun
+    private _callback = (() => {}) as Fun
     private _items = new Map()
 
     constructor (callback=(()=>{}) as Fun, props: Props={}) {
-        this.callback = callback
+        this._callback = callback
         eachProp(props, (prop, key) => {
             if (!is.arr(prop)) prop = is.str(prop)? [prop]: []
             this._items.set(key, prop.map((v='') => v.trim()))
@@ -27,10 +27,9 @@ export class RbenController {
 
     dispatch (key='', next: any) {
         const inputs = this._items.get(key)
-        if (is.fun(next))
-            next = next(inputs)
+        if (is.fun(next)) next = next(inputs)
         this._items.set(key, next)
-        this.callback()
+        this._callback()
     }
 
     get data () {

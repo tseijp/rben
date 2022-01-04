@@ -1,7 +1,10 @@
 import React from "react";
 import styled from "styled-components";
 
-export type PointProps = Partial<{x: number, y: number}>
+export type PointProps = Partial<{
+    x: number
+    y: number
+}>
 
 export function Point (props: PointProps) {
     const { x, y } = props

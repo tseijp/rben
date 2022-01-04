@@ -5,7 +5,8 @@ import { Time } from '../components/Time'
 import { useRuby, useForceUpdate } from '../hooks'
 
 export type EditProps = Partial<{
-    $args: [string[], string, any]
+    children: null | JSX.Element
+    args: [string[], string, any]
 }>
 
 export function Edit (props: any) {
@@ -20,12 +21,12 @@ export function Edit (props: any) {
     return (
       <Glass {...other}>
         <Flex $row $tool>
-          <Glass $button $start onClick={set}/>
-          <Glass $button $stop onClick={rm}/>
+          <Glass $btn $start onClick={set}/>
+          <Glass $btn $stop onClick={rm}/>
           <Time $dt={$.deltaTime}/>
         </Flex>
-        <Glass $input value={$.input} onChange={handleChange} />
-        <Glass $input value={$.output} $output></Glass>
+        <Glass $in value={$.input} onChange={handleChange} />
+        <Glass $in value={$.output} $out></Glass>
       </Glass>
     )
 }

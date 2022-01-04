@@ -1,11 +1,11 @@
-import ruby from "./Ruby";
-import { is } from './helpers'
+import ruby from "../Ruby";
+import { is } from '../helpers'
 
 const join = (res: any) =>  res.output.map((chunk: any) => chunk.output).join("")
 
 type Fun = (...args: any) => void
 
-export interface State {
+interface State {
     error: null | Error
     input: string
     output: string
@@ -48,8 +48,7 @@ export class RubyController {
     dispatch (input='') {
         const { state: $ } = this
         if (input === $.input) return
-        if (!is.str(input))
-            input = $.input
+        if (!is.str(input)) input = $.input
         $.input = input
         this.callback($)
     }

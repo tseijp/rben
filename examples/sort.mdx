@@ -1,10 +1,10 @@
 # Sort
 
-import { UseRben } from '../hooks'
+import { Rben } from '../containers/Rben'
 import { Edit } from '../containers/Edit'
 import { Unit } from '../containers/Unit'
 
-<UseRben Unit={Unit} Globals={[]}  Cases={[`
+<Rben Globals={[]}  Cases={[`
 def bubblesort(a, done=false)
     while !done do
         done = true
@@ -71,8 +71,4 @@ p radixsort (1..100).to_a.shuffle
 p (1..100).to_a.shuffle.sort
 `,
 ]}
->
-{(...args) =>
-  <Edit key={args[1]} args={args} />
-}
-</UseRben>
+/>

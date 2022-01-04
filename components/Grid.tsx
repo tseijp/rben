@@ -1,7 +1,7 @@
 import React from 'react'
 import styled from 'styled-components'
 import { animated } from 'react-spring'
-
+import { withUnitAttrs } from './attributes'
 export type GridProps = Partial<{
     $row: string
     $col: string
@@ -22,10 +22,3 @@ export const Grid = styled(animated.div)
     grid-Container-rows: ${({ $row, $ }) => $row? $row.split(" ").join($ + " ") + $: 'auto'};
     grid-Container-columns: ${({ $col, $ }) => $col? $col.split(" ").join($ + " ") + $: 'auto'};
 `
-
-function withUnitAttrs (props: GridProps) {
-    props.$ = ''
-    if (props.$px) props.$ = 'px'
-    if (props.$mm) props.$ = 'mm'
-    return props;
-}

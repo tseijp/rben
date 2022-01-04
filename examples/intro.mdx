@@ -4,16 +4,9 @@
 - [Sort](sort)
 - [Square](square)
 
+import { Rben } from '../containers/Rben'
 
-import { UseRben } from '../hooks'
-import { Edit } from '../containers/Edit'
-import { Unit } from '../containers/Unit'
-
-<UseRben Unit={Unit} Globals={[]} Cases={[`
+<Rben Globals={[]} Cases={[`
 puts "hello"
 `]}
->
-{(...args) =>
-  <Edit key={args[1]} args={args} />
-}
-</UseRben>
+/>

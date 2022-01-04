@@ -1,10 +1,10 @@
 # Sym
 
-import { UseRben } from '../hooks'
+import { Rben } from '../containers/Rben'
 import { Edit } from '../containers/Edit'
 import { Unit } from '../containers/Unit'
 
-<UseRben Unit={Unit} Globals={[`
+<Rben Globals={[`
 class Sym
     def initialize(initValue=nil)
         @_ = initValue
@@ -24,8 +24,5 @@ x, y = (0..1).map do Sym.new end
 x == 3
 y == 4
 p (x ** 2 + y ** 2).to_i # -> 25
-`]}>
-{(...args) =>
-  <Edit key={args[1]} args={args} />
-}
-</UseRben>
+`]}
+/>

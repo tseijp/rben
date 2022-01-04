@@ -8,15 +8,16 @@ import { Plot } from '../components/Plot'
 import { Point } from '../components/Point'
 import { Glass } from '../components/Glass'
 import { Background } from '../components/Background'
-import { RbenController } from '../hooks/RbenController'
+import { RbenController } from '../hooks'
 
 export type WrapProps = Partial<{
-    ctrl: RbenController
-    children: any
+    data: any[]
+    size: number
+    children: null | JSX.Element
 }>
 
 export function Wrap (props: WrapProps) {
-    const { ctrl, children, ...other } = props
+    const { data, size, children, ...other } = props
     return (
       <Layout {...other}>
         <Relative>
@@ -25,14 +26,14 @@ export function Wrap (props: WrapProps) {
               <Head $h1 $top>RBEN</Head>
               <Head $h3>Ruby Benchmark Test</Head>
               <Flex>
-                <Background size={ctrl.size} />
+                <Background size={size} />
                 { children }
                 <Unit index="Benchmark">
                   <Flex $row $tool>
-                    <Glass $button $start/>
-                    <Glass $button $stop/>
+                    <Glass $btn $start/>
+                    <Glass $btn $stop/>
                   </Flex>
-                  {ctrl.data &&
+                  { data &&
                     <Plot>
                       {(props: any) => <Point {...props}/>}
                     </Plot>

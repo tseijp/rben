@@ -2,7 +2,6 @@
 packages-lock.json
 yarn.lock
 emscripten
-TODO.md
 
 # Dependencies
 /node_modules

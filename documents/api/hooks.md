@@ -2,15 +2,19 @@
 
 ### useRben
 
+__Usage__
+
 ```js
 const [state, set] = useRben(props)
 const { entires, size } = state
 const handleChange = () => set(key, ['puts "hello"'])
-
 ```
 - `props` is an objects containing Ruby code
 
+
 ### useRuby
+
+__Usage__
 
 ```js
 const [state, set] = useRuby(callback, input, timeStamp)
@@ -20,8 +24,6 @@ const handleChange = (e) => set(e.target.value)
 - `callback` is a function after running the code
 - `input` is a text of default Ruby code to run
 - `timeStamp` is a number to delay running the code.
-
-
 
 __State interface__
 
@@ -36,6 +38,8 @@ __State interface__
 | deltaTime?: number |  |
 
 ### useDelay
+
+__Usage__
 
 ```js
 const delay = useDelay(callback, timeStamp)

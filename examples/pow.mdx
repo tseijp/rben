@@ -1,10 +1,8 @@
 # Pow
 
-import { UseRben } from '../hooks'
-import { Edit } from '../containers/Edit'
-import { Unit } from '../containers/Unit'
+import { Rben } from '../Containers/Rben'
 
-<UseRben Unit={Unit} Globals={[]}  Cases={[`
+<Rben Globals={[]}  Cases={[`
 def near1pow1(n)
     result = 1.0
         n.times do result = result * 1.0000000001 end
@@ -30,8 +28,4 @@ def near1pow3(n)
 end
 puts near1pow3(3)
 `]}
->
-{(...args) =>
-  <Edit key={args[1]} args={args} />
-}
-</UseRben>
+/>
