@@ -2,12 +2,13 @@
  * ref: https://superdevresources.com/glassmorphism-ui-css/
  * ref https://migi.me/css/video-play-pause-icon/
  */
-import { ReactNode } from 'react'
+import { ReactNode, useState } from 'react'
 import styled, { css } from 'styled-components'
 import useThemeContext from '@theme/hooks/useThemeContext';
 import { animated, useSpring } from 'react-spring'
 
 export type GlassProps = Partial<{
+    $collapse: boolean
     $button: boolean
     $output: boolean
     $input: boolean
@@ -21,8 +22,10 @@ export type GlassProps = Partial<{
     $c: '0,0,0'|'255,255,255'
     as: ReactNode
     style: any
-    children: ReactNode
     value: string
+    children: ReactNode
+    onMouseEnter: () => void
+    onMouseLeave: () => void
 }>
 
 export const Glass = styled(animated.div)
@@ -32,8 +35,8 @@ export const Glass = styled(animated.div)
     .attrs(withHeightAttrs)
     .attrs(withValueAttrs)
 <GlassProps>`
-    overflow: hidden;
     display: block;
+    overflow: hidden;
     position: relative;
     ${glassStyle}
     ${startStyle}
@@ -107,12 +110,11 @@ function buttonStyle (props: GlassProps) {
         cursor: pointer;
         width: 3rem;
         height: 3rem;
+        padding: 0;
         margin-right: 0.5rem;
         display: inline-block;
-        padding: 0;
         font-size: 2rem;
         letter-spacing: 2px;
-        padding: 0;
         text-align: center;
         text-transform: uppercase;
         text-decoration: none;
@@ -150,7 +152,6 @@ function otherStyle (props: GlassProps) {
         width: 100%;
         padding: 2rem;
         margin: 1rem 0;
-        padding: auto;
     `
 }
 
@@ -177,9 +178,19 @@ function withHeadAttrs (props: GlassProps) {
 }
 
 function withHeightAttrs (props: GlassProps) {
-    if (!props.$input) return props
-    const len = props.value?.split?.("\n")?.length || 0
-    props.style = useSpring({height: len * 1.22 + 4.22 + 'rem'})
+    const [hover, set] = useState(false)
+    props.onMouseEnter = () => set(true)
+    props.onMouseLeave = () => set(false)
+    if (props.$input) {
+        const len = props.value?.split?.("\n")?.length || 0
+        props.style = useSpring({height: len * 1.22 + 4.22 + 'rem'})
+        return props
+    }
+    if (props.$collapse) {
+        console.log(props.$collapse)
+        props.style = useSpring({maxHeight: hover? '100rem': '7.5rem'})
+        return props
+    }
     return props
 }
 

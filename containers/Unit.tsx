@@ -9,7 +9,7 @@ export function Unit (props: any) {
     const { children, index="", set=()=>{}, ...other } = props
     return (
       <Flex {...other}>
-        <Glass>
+        <Glass $collapse={index === 'Globals'}>
           { index }
           <Glass $button $p onClick={() => set(index, plus)} />
           <Glass $button $m onClick={() => set(index, minus)} />

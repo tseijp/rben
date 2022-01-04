@@ -1,0 +1,31 @@
+# Sym
+
+import { UseRben } from '../hooks'
+import { Edit } from '../containers/Edit'
+import { Unit } from '../containers/Unit'
+
+<UseRben Unit={Unit} Globals={[`
+class Sym
+    def initialize(initValue=nil)
+        @_ = initValue
+        @fun = ->{@_}
+        @bind = ->fun{_ = @fun.clone; @fun = ->{@_ = _[]; fun[]}; self}
+    end
+    def to_i() @fun[] end
+    def +(_) @bind[->{@_ + _.to_i}] end
+    def -(_) @bind[->{@_ - _.to_i}] end
+    def *(_) @bind[->{@_ * _.to_i}] end
+    def /(_) @bind[->{@_ / _.to_i}] end
+    def **(_) @bind[->{@_ ** _.to_i}] end
+    def ==(_) @bind[->{_.to_i}] end
+    def &(_) @bind[->{_.to_i}] end
+end`]} Cases={[`
+x, y = (0..1).map do Sym.new end
+x == 3
+y == 4
+p (x ** 2 + y ** 2).to_i # -> 25
+`]}>
+{(...args) =>
+  <Edit key={args[1]} args={args} />
+}
+</UseRben>
