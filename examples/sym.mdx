@@ -4,7 +4,7 @@ import { Rben } from '../containers/Rben'
 import { Edit } from '../containers/Edit'
 import { Unit } from '../containers/Unit'
 
-<Rben Globals={[`
+<Rben Globals={[]} Cases={[`
 class Sym
     def initialize(initValue=nil)
         @_ = initValue
@@ -19,7 +19,7 @@ class Sym
     def **(_) @bind[->{@_ ** _.to_i}] end
     def ==(_) @bind[->{_.to_i}] end
     def &(_) @bind[->{_.to_i}] end
-end`]} Cases={[`
+end
 x, y = (0..1).map do Sym.new end
 x == 3
 y == 4

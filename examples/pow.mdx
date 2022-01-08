@@ -8,7 +8,7 @@ def near1pow1(n)
         n.times do result = result * 1.0000000001 end
     return result
 end
-puts near1pow1(1)
+p near1pow1 1
 `, `
 def near1pow2(n)
     if n == 0
@@ -21,11 +21,11 @@ def near1pow2(n)
         return near1pow2(n/2)**2
     end
 end
-puts near1pow2(2)
+p near1pow2 2
 `,  `
 def near1pow3(n)
     return Math.exp(n*Math.log(1.0000000001))
 end
-puts near1pow3(3)
+p near1pow3 3
 `]}
 />
