@@ -1,0 +1,38 @@
+# sqrt
+
+import { Rben } from '../Containers/Rben'
+
+<Rben Globals={[]}  Cases={[`
+N = 1000000
+def enumsqrt(x)
+    i = 1; dx = x/N; t = dx
+    t += dx while t * t < x
+    return t;
+end
+p enumsqrt 10e1
+`, `
+EPSILON = 1e-10
+def binsqrt(x)
+    a = 0.0; b = x;
+    while b - a > EPSILON
+        c = a / 2 + b / 2
+        if c * c - x >= 0 then b = c else a = c end
+    end
+    return a;
+end
+p binsqrt 10e1
+`, `
+EPSILON = 1e-10
+def ntnsqrt(x)
+    a = x; b = 2 * x;
+    a = (b = a) / 2 + x / 2 / a while b - a > EPSILON;
+    return a;
+end
+p ntnsqrt 10e1
+`,`
+def rubysqrt(n)
+    return Math.sqrt(n)
+end
+p rubysqrt 10e1
+`]}
+/>

@@ -32,20 +32,20 @@ module.exports = {
         navbar: {
             title: 'rben ',
             items: [
-                {type: 'doc', docId: 'index', position: 'left', label: 'Documents', docsPluginId: 'documents'},
-                {type: 'doc', docId: 'index', position: 'left', label: 'Examples', docsPluginId: 'examples'},
+                { position: 'left', to: '/documents/', label: 'Documents' },
+                { position: 'left', to: '/examples/', label: 'Examples' },
                 {href: 'https://github.com/tseijp/rben', label: 'GitHub', position: 'right'},
             ],
         },
         footer: {
             style: 'dark',
             links: [
-                {title: 'Pages', items: [{label: 'Docs', to: '/documents'}]},
-                {title: 'Community', items: [
+                { title: 'Pages', items: [{label: 'Docs', to: '/documents'}] },
+                { title: 'Community', items: [
                     {label: 'Stack Overflow', href: 'https://stackoverflow.com/questions/tagged/rben'},
                     {label: 'Twitter', href: 'https://twitter.com/tseijp'},
-                ]},
-                {title: 'More', items: [{label: 'GitHub', href: 'https://github.com/tseijp/rben'}]},
+                ] },
+                { title: 'More', items: [{label: 'GitHub', href: 'https://github.com/tseijp/rben'}] },
             ],
             copyright: `Copyright © ${new Date().getFullYear()} My Project, Inc. Built with Docusaurus.`,
         }

@@ -1,10 +1,10 @@
 import { useState } from 'react'
-import useThemeContext from '@theme/hooks/useThemeContext';
 import { animated, useSpring } from 'react-spring'
+import { useIsDarkTheme } from '../hooks'
 
 export function withDarkAttrs <Props> (props: Props): Props
 export function withDarkAttrs (props: any) {
-    const { isDarkTheme } = useThemeContext()
+    const isDarkTheme = useIsDarkTheme()
     props.$c = isDarkTheme? '0,0,0':'255,255,255'
     return props
 }

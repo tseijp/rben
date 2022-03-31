@@ -1,0 +1,48 @@
+# Math
+
+import { Rben } from '../Containers/Rben'
+
+<Rben Globals={[]}  Cases={[`
+def add(a, b)
+  return a + b
+end
+p add 7, 8
+`, `
+def sub(a, b)
+  return a - b
+end
+p sub 7, 8
+`,  `
+def div(a, b)
+  return a / b
+end
+p div 7, 8
+`, `
+def mul(a, b)
+  return a * b
+end
+p mul 7, 8
+`, `
+def rem(a, b)
+  return a % b
+end
+p rem 7, 8
+`, `
+def inv(a, b = 1.0)
+  return b / a
+end
+p inv 7, 8
+`, `
+def pow(a, b = 8)
+  ret = 1.0
+  b.times do ret *= a end
+  return ret
+end
+p pow 7, 8
+`, `
+def cone_volume(rad, height)
+  return rad * rad * Math::PI * height / 3.0
+end
+p cone_volume 7, 8
+`]}
+/>

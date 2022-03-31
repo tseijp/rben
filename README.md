@@ -1,6 +1,7 @@
 <p align="center">
 
 # RBEN👺
+
 [![][status-img]][status]
 [![][code-quality-img]][code-quality]
 [![][license-img]][license]
@@ -14,8 +15,7 @@ This project is a fork of [run.rb][runrb].
 > Inside /emscripten you'll find (currently)
 > Ruby 2.6.0 and the tooling required to compile Ruby to WASM.
 
-### What does it look like?
-
+## What does it look like?
 
 ```js
 <Rben
@@ -24,27 +24,29 @@ This project is a fork of [run.rb][runrb].
 />
 ```
 
-### Getting Started
+## Getting Started
 
-__Installation__
+### Installation
+
 ```shell
 git clone https://github.com/tseijp/rben
+cd rben
+yarn
 ```
 
-__Local Development__
+### Local Development
 
 Run the development server:
 
 ```shell
-cd rben
-yarn init
 yarn start
 ```
+
 This command starts a local development server and opens up a browser window.
 Most changes are reflected live without having to restart the server.
 Your site starts at [http://localhost:3d00](http://localhost:3d00).
 
-__Build__
+### Build
 
 ```shell
 $ yarn build
@@ -53,7 +55,7 @@ $ yarn build
 This command generates static content into the `build` directory
 and can be served using any static contents hosting service.
 
-__Deployment__
+### Deployment
 
 ```shell
 $ GIT_USER=<Your GitHub username> USE_SSH=true yarn deploy

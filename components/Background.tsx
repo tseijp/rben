@@ -8,7 +8,7 @@ import { Canvas } from '@react-three/fiber'
 import * as THREE from "three"
 import * as CANNON from "@react-three/cannon";
 import { Geometry } from "three-stdlib"
-import useThemeContext from '@theme/hooks/useThemeContext';
+import { useIsDarkTheme } from '../hooks'
 import { useMax, range } from '../hooks'
 
 export type BackgroundProps = Partial<{
@@ -21,7 +21,7 @@ export type BackgroundProps = Partial<{
 export function Background (props: BackgroundProps) {
     const { size, shake, debug, children, ...other } = props
     const maxSize = useMax(size)
-    const { isDarkTheme } = useThemeContext()
+    const isDarkTheme = useIsDarkTheme()
     const background = isDarkTheme? "#781E1E": "#FF8080"
     if (debug) return <div style={{...style, background}}/>
     return (

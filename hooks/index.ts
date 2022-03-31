@@ -1,10 +1,16 @@
 import React, { useState, useEffect, createElement as el } from 'react'
 import { PlotController, RubyController, RbenController, DelayController } from './controllers'
+import useDocusaurusContext from '@docusaurus/useDocusaurusContext';
 import * as d3 from "d3";
 export * from './controllers'
 export * from './helpers'
 
 const { useD3 } = require('d3blackbox')
+
+// @TODO fix
+export function useIsDarkTheme() {
+    return useDocusaurusContext().siteConfig.themeConfig.isDarkTheme
+}
 
 export function useRben (props: any) {
     const fn = useForceUpdate()
