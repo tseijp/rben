@@ -1,0 +1,1 @@
+"use strict";(self.webpackChunk_rben_docs=self.webpackChunk_rben_docs||[]).push([[850],{1353:function(e){e.exports=JSON.parse('{"plugin":{"name":"docusaurus-plugin-content-docs","id":"examples"}}')}}]);
