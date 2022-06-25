@@ -1,6 +1,6 @@
-<p align="center">
+# 👺@tsei/rben
 
-# RBEN👺
+<p align="center">
 
 [![][status-img]][status]
 [![][code-quality-img]][code-quality]
@@ -49,7 +49,7 @@ Your site starts at [http://localhost:3d00](http://localhost:3d00).
 ### Build
 
 ```shell
-$ yarn build
+yarn build
 ```
 
 This command generates static content into the `build` directory
@@ -58,7 +58,7 @@ and can be served using any static contents hosting service.
 ### Deployment
 
 ```shell
-$ GIT_USER=<Your GitHub username> USE_SSH=true yarn deploy
+GIT_USER=<Your GitHub username> USE_SSH=true yarn deploy
 ```
 
 [runrb]: https://github.com/jasoncharnes/run.rb
