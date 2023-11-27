@@ -6,6 +6,10 @@
 [![][code-quality-img]][code-quality]
 [![][license-img]][license]
 
+<a href="https://tseijp.github.io/rben">
+  <img alt="👺" height="128px" src="https://i.imgur.com/lQQwQqx.gif" />
+</a>
+
 </p>
 
 RBEN is a tool to Benchmark Ruby code inside the browser.
